@@ -1,4 +1,4 @@
-package com.pixel.exception;
+package com.cignititech.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {

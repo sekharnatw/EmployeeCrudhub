@@ -1,4 +1,4 @@
-package com.pixel.dto;
+package com.cignititech.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;

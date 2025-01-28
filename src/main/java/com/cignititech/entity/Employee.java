@@ -1,4 +1,4 @@
-package com.pixel.entity;
+package com.cignititech.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;

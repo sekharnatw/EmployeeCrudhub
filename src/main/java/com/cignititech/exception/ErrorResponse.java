@@ -1,4 +1,4 @@
-package com.pixel.exception;
+package com.cignititech.exception;
 
 import lombok.Data;
 

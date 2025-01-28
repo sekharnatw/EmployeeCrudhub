@@ -1,6 +1,6 @@
-package com.pixel.repository;
+package com.cignititech.repository;
 
-import com.pixel.entity.Employee;
+import com.cignititech.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

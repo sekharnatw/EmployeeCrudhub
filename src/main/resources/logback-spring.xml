@@ -1,0 +1,35 @@
+<configuration>
+    <!-- Define ANSI color codes -->
+    <property name="BLACK" value="\u001b[30m"/>
+    <property name="RED" value="\u001b[31m"/>
+    <property name="GREEN" value="\u001b[32m"/>
+    <property name="YELLOW" value="\u001b[33m"/>
+    <property name="BLUE" value="\u001b[34m"/>
+    <property name="MAGENTA" value="\u001b[35m"/>
+    <property name="CYAN" value="\u001b[36m"/>
+    <property name="WHITE" value="\u001b[37m"/>
+    <property name="RESET" value="\u001b[0m"/>
+
+    <!-- Define color mappings for log levels -->
+    <property name="LOG_LEVEL_TRACE" value="${CYAN}"/>
+    <property name="LOG_LEVEL_DEBUG" value="${BLUE}"/>
+    <property name="LOG_LEVEL_INFO" value="${GREEN}"/>
+    <property name="LOG_LEVEL_WARN" value="${YELLOW}"/>
+    <property name="LOG_LEVEL_ERROR" value="${RED}"/>
+
+    <!-- Console appender with colored logs -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} %highlight([%thread]) %magenta([%X{correlationId}]) %-5level %logger{36} - %msg%n
+            </pattern>
+            <!-- Use ANSI colors -->
+            <withJansi>true</withJansi>
+        </encoder>
+    </appender>
+
+    <!-- Root logger -->
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

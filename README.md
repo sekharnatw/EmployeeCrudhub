@@ -9,7 +9,16 @@ This is a Spring Boot application that provides a REST API for performing CRUD o
 - DTOs: Use of Data Transfer Objects (DTOs) for request and response handling.
 - Lombok: Reduces boilerplate code with Lombok annotations.
 - MySQL Database: Stores employee data in a MySQL database.
-
+- Enhanced Logging
+  - Correlation ID  
+    - A unique ID is generated for each request and included in every log message.
+    - This helps track requests across multiple microservices.
+  - Execution Time
+    - The start time, end time, and execution duration of each method are logged.
+  - Centralized Logging
+    - Logging logic is centralized in the LoggingAspect, making it easy to manage and update.
+  - Thread Safety
+    - The correlation ID is stored in the MDC, which is thread-safe and automatically cleared after the request is processed.
 
 ## Technologies Used
 

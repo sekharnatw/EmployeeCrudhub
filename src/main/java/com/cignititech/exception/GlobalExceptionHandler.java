@@ -1,4 +1,4 @@
-package com.pixel.exception;
+package com.cignititech.exception;
 
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
