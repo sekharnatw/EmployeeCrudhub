@@ -1,9 +1,11 @@
 package com.cignititech.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class EmployeeRequestDTO {
 
     @NotBlank(message = "Name is required")

@@ -3,6 +3,7 @@ package com.cignititech.service;
 import com.cignititech.dto.EmployeeRequestDTO;
 import com.cignititech.dto.EmployeeResponseDTO;
 import com.cignititech.entity.Employee;
+import com.cignititech.exception.ResourceNotFoundException;
 import com.cignititech.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,13 +43,13 @@ public class EmployeeService {
 
     public EmployeeResponseDTO getEmployeeById(Long empId) {
         Employee employee = employeeRepository.findById(empId)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
         return mapToResponseDTO(employee);
     }
 
     public EmployeeResponseDTO updateEmployee(Long empId, EmployeeRequestDTO employeeRequestDTO) {
         Employee employee = employeeRepository.findById(empId)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with ID: " + empId));
 
         employee.setName(employeeRequestDTO.getName());
         employee.setAge(employeeRequestDTO.getAge());
@@ -61,17 +62,20 @@ public class EmployeeService {
     }
 
     public void deleteEmployee(Long empId) {
-        employeeRepository.deleteById(empId);
+        Employee employee = employeeRepository.findById(empId)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with ID: " + empId));
+
+        employeeRepository.delete(employee);
     }
 
     private EmployeeResponseDTO mapToResponseDTO(Employee employee) {
-        EmployeeResponseDTO responseDTO = new EmployeeResponseDTO();
-        responseDTO.setEmpId(employee.getEmpId());
-        responseDTO.setName(employee.getName());
-        responseDTO.setAge(employee.getAge());
-        responseDTO.setGender(employee.getGender());
-        responseDTO.setCity(employee.getCity());
-        responseDTO.setPinCode(employee.getPinCode());
-        return responseDTO;
+        return EmployeeResponseDTO.builder()
+                .empId(employee.getEmpId())
+                .name(employee.getName())
+                .age(employee.getAge())
+                .gender(employee.getGender())
+                .city(employee.getCity())
+                .pinCode(employee.getPinCode())
+                .build();
     }
 }

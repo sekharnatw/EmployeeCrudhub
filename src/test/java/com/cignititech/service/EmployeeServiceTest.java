@@ -36,28 +36,7 @@ public class EmployeeServiceTest {
 
     @BeforeEach
     public void setUp() {
-        employee = new Employee();
-        employee.setEmpId(1L);
-        employee.setName("John Doe");
-        employee.setAge(30);
-        employee.setGender("Male");
-        employee.setCity("New York");
-        employee.setPinCode("100001");
-
-        employeeRequestDTO = new EmployeeRequestDTO();
-        employeeRequestDTO.setName("John Doe");
-        employeeRequestDTO.setAge(30);
-        employeeRequestDTO.setGender("Male");
-        employeeRequestDTO.setCity("New York");
-        employeeRequestDTO.setPinCode("100001");
-
-        employeeResponseDTO = new EmployeeResponseDTO();
-        employeeResponseDTO.setEmpId(1L);
-        employeeResponseDTO.setName("John Doe");
-        employeeResponseDTO.setAge(30);
-        employeeResponseDTO.setGender("Male");
-        employeeResponseDTO.setCity("New York");
-        employeeResponseDTO.setPinCode("100001");
+        initializeTestObjects();
     }
 
     @Test
@@ -125,7 +104,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void testGetEmployeeById_NotFound() {
+    void testGetEmployeeById_NotFound() {
         // Mock repository behavior
         when(employeeRepository.findById(999L)).thenReturn(Optional.empty());
 
@@ -187,15 +166,49 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void testDeleteEmployee_NotFound() {
-        // Mock repository behavior
+    void testDeleteEmployee_NotFound() {
+        // Mock repository behavior: Return empty Optional for non-existing employee
         when(employeeRepository.findById(999L)).thenReturn(Optional.empty());
 
         // Call the service method and expect an exception
-        assertThrows(ResourceNotFoundException.class, () -> employeeService.deleteEmployee(999L));
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
+            employeeService.deleteEmployee(999L);
+        });
+
+        // Verify the exception message
+        assertEquals("Employee not found with ID: 999", exception.getMessage());
 
         // Verify repository interaction
         verify(employeeRepository, times(1)).findById(999L);
         verify(employeeRepository, never()).delete(any(Employee.class));
     }
+
+    public void initializeTestObjects() {
+        employee = Employee.builder()
+                .empId(1L)
+                .name("John Doe")
+                .age(30)
+                .gender("Male")
+                .city("New York")
+                .pinCode("100001")
+                .build();
+
+        employeeRequestDTO = EmployeeRequestDTO.builder()
+                .name("John Doe")
+                .age(30)
+                .gender("Male")
+                .city("New York")
+                .pinCode("100001")
+                .build();
+
+        employeeResponseDTO = EmployeeResponseDTO.builder()
+                .empId(1L)
+                .name("John Doe")
+                .age(30)
+                .gender("Male")
+                .city("New York")
+                .pinCode("100001")
+                .build();
+    }
+
 }
