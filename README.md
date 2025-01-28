@@ -30,8 +30,7 @@ This is a Spring Boot application that provides a REST API for performing CRUD o
 ## Clone the Repository:
 
 ```
-    git clone https://github.com/your-username/employee-rest-api.git
-    cd employee-rest-api
+    git clone https://github.com/sekharnatw/EmployeeCrudhub
 ```
 
 ## Database configuration
