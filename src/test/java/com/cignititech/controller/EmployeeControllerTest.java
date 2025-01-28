@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import static org.mockito.Mockito.when;
+
 import java.util.*;
 
 public class EmployeeControllerTest {
@@ -36,7 +38,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void testCreateEmployee() {
+    void testCreateEmployee() {
         // Mock service method
         when(employeeService.createEmployee(any(EmployeeRequestDTO.class))).thenReturn(employeeResponseDTO);
 
@@ -52,7 +54,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void testGetAllEmployees() {
+    void testGetAllEmployees() {
         List<EmployeeResponseDTO> employees = Arrays.asList(employeeResponseDTO);
         when(employeeService.getAllEmployees()).thenReturn(employees);
 
@@ -65,7 +67,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void testGetEmployeeById() {
+    void testGetEmployeeById() {
         when(employeeService.getEmployeeById(1L)).thenReturn(employeeResponseDTO);
 
         ResponseEntity<EmployeeResponseDTO> response = employeeController.getEmployeeById(1L);
@@ -77,7 +79,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void testUpdateEmployee() {
+    void testUpdateEmployee() {
         when(employeeService.updateEmployee(eq(1L), any(EmployeeRequestDTO.class))).thenReturn(employeeResponseDTO);
 
         ResponseEntity<EmployeeResponseDTO> response = employeeController.updateEmployee(1L, employeeRequestDTO);
@@ -89,7 +91,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void testDeleteEmployee() {
+    void testDeleteEmployee() {
         doNothing().when(employeeService).deleteEmployee(1L);
 
         ResponseEntity<Void> response = employeeController.deleteEmployee(1L);
@@ -98,6 +100,7 @@ public class EmployeeControllerTest {
 
         verify(employeeService, times(1)).deleteEmployee(1L);
     }
+
     private void initializeDTOs() {
         employeeRequestDTO = EmployeeRequestDTO.builder()
                 .name("John Doe")

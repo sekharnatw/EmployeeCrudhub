@@ -40,7 +40,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void testCreateEmployee() {
+    void testCreateEmployee() {
         // Mock repository behavior
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
 
@@ -61,7 +61,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void testGetAllEmployees() {
+    void testGetAllEmployees() {
         // Mock repository behavior
         when(employeeRepository.findAll()).thenReturn(Collections.singletonList(employee));
 
@@ -83,7 +83,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void testGetEmployeeById() {
+    void testGetEmployeeById() {
         // Mock repository behavior
         when(employeeRepository.findById(1L)).thenReturn(Optional.of(employee));
 
@@ -183,7 +183,7 @@ public class EmployeeServiceTest {
         verify(employeeRepository, never()).delete(any(Employee.class));
     }
 
-    public void initializeTestObjects() {
+    private void initializeTestObjects() {
         employee = Employee.builder()
                 .empId(1L)
                 .name("John Doe")
